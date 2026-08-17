@@ -8,26 +8,25 @@ plugins {
 android {
     namespace = "com.example.cpp_integration"
     compileSdk = 36
-    ndkVersion '28.2.13676358'
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-        coreLibraryDesugaringEnabled true
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = "11"
     }
 
     defaultConfig {
         applicationId = "com.example.cpp_integration"
-        multiDexEnabled true
-        minSdkVersion 30
-        targetSdkVersion 36
-        buildToolsVersion "34.0.0"
-        versionCode flutter.versionCode
-        versionName flutter.versionName
+        multiDexEnabled = true
+        minSdk = 30
+        targetSdk = 36
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
     }
 
     buildTypes {
@@ -40,13 +39,20 @@ android {
 
     externalNativeBuild {
         cmake {
-            path "CMakeLists.txt"
+            path = file("../CMakeLists.txt")
+            version = "3.22.1"
         }
     }
 
-    packagingOptions {
-        pickFirst '**/*.so'
+    packaging {
+        jniLibs {
+            pickFirsts += "**/*.so"
+        }
     }
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }
 
 flutter {

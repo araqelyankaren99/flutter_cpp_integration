@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+
+import 'package:cpp_integration/calculator_bindings.dart';
 
 void main() {
   runApp(const MyApp());
@@ -65,6 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+    final int _nativeSum = CalculatorBindings.add(5, 7);
+    final double nativeProduct = CalculatorBindings.multiply(2.5, 4.0);
+    final String nativeMessage = CalculatorBindings.getMessage();
+    log('nativeSum = $_nativeSum ; nativeProduct = $nativeProduct ; nativeMessage = $nativeMessage');
   }
 
   @override
