@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'calculator_bindings.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -56,6 +58,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  // Calls into the native C++ code compiled from cpp/calculator.cpp.
+  late final int _nativeSum = CalculatorBindings.add(5, 7);
+  late final double _nativeProduct = CalculatorBindings.multiply(2.5, 4.0);
+  late final String _nativeMessage = CalculatorBindings.getMessage();
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -109,6 +116,11 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const SizedBox(height: 24),
+            const Text('From native C++ (cpp/calculator.cpp):'),
+            Text('calculator_add(5, 7) = $_nativeSum'),
+            Text('calculator_multiply(2.5, 4.0) = $_nativeProduct'),
+            Text('calculator_get_message() = "$_nativeMessage"'),
           ],
         ),
       ),
